@@ -1,0 +1,28 @@
+/* block_google_search.css */
+
+.block-google-dynamic-search {
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.block-google-dynamic-search table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.block-google-dynamic-search td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.block-google-dynamic-search a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.block-google-dynamic-search a:hover {
+    color: #2980b9;
+}
