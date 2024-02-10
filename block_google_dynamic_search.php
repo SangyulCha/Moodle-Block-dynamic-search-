@@ -22,21 +22,26 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(__FILE__) . '/form.php');
-class block_google_dynamic_search extends block_base {
+
+class block_google_dynamic_search extends block_base
+{
 
     /**
      * Initializes class member variables.
      */
-    public function init() {
+    public function init()
+    {
         // Needed by Moodle to differentiate between blocks.
         $this->title = get_string('pluginname', 'block_google_dynamic_search');
     }
+
     /**
      * Returns the block contents.
      *
      * @return stdClass The block contents.
      */
-    public function get_content() {
+    public function get_content()
+    {
 
         if ($this->content !== null) {
             return $this->content;
@@ -75,7 +80,8 @@ class block_google_dynamic_search extends block_base {
         return $this->content;
     }
 
-    private function get_search_results($search_term, $search_engine_id, $api_key) {
+    private function get_search_results($search_term, $search_engine_id, $api_key)
+    {
         // Google API call
         $api_url = "https://www.googleapis.com/customsearch/v1?q=$search_term&key=$api_key&cx=$search_engine_id";
         $response = file_get_contents($api_url);
@@ -84,7 +90,8 @@ class block_google_dynamic_search extends block_base {
         return json_decode($response, true);
     }
 
-    private function display_search_results($results) {
+    private function display_search_results($results)
+    {
         $html_result = '<div class="block-google-dynamic-search">';
         $html_result .= '<link rel="stylesheet" type="text/css" href="' . $this->get_css_url() . '">';
         $html_result .= '<table>';
@@ -99,7 +106,8 @@ class block_google_dynamic_search extends block_base {
         return $html_result;
     }
 
-    private function get_css_url() {
+    private function get_css_url()
+    {
         $block_path = rtrim(dirname(__FILE__), '/');
         $css_file = 'style.css';
         return "$block_path/$css_file";
@@ -110,7 +118,8 @@ class block_google_dynamic_search extends block_base {
      *
      * The function is called immediately after init().
      */
-    public function specialization() {
+    public function specialization()
+    {
 
         // Load user defined title and make sure it's never empty.
         if (empty($this->config->title)) {
@@ -125,21 +134,25 @@ class block_google_dynamic_search extends block_base {
      *
      * @return string[] Array of pages and permissions.
      */
-    public function applicable_formats() {
+    public function applicable_formats()
+    {
         return array(
             'all' => true,
         );
     }
 
-    public function instance_allow_multiple() {
+    public function instance_allow_multiple()
+    {
         return true;
     }
 
-    public function has_config() {
+    public function has_config()
+    {
         return true;
     }
 
-    function _self_test() {
-  	return true;
-	}
+    function _self_test()
+    {
+        return true;
+    }
 }
