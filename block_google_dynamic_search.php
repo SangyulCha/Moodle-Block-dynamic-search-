@@ -54,40 +54,40 @@ class block_google_dynamic_search extends block_base
         }
 
         $this->content = new stdClass();
-        // Google API Key and Custom Search Engine ID
+        // Retrieve Google API Key and Custom Search Engine ID from plugin configuration.
         $api_key = get_config(self::PLUGIN_NAME, 'apikey');
         $search_engine_id = get_config(self::PLUGIN_NAME, 'search_engine_id');
-        // Display form
+        // Create a new instance of the Google search form.
         $form = new block_google_search_form();
 
-        // Check if the form is cancelled
+        // Check if the form is cancelled.
         if ($form->is_cancelled()) {
             // If cancelled, clear the content and return
             $this->content->text = '';
             return $this->content;
         }
 
-        // Get form data
+        // Get form data.
         if (!$data = $form->get_data()) {
-            // If form data is not available, display the form and return
+            // If form data is not available, display the form and return.
             $this->content->text = $form->render();
             return $this->content;
         }
 
-        // Process form submission
+        // Process form submission.
         $search_term = str_replace(' ', '%20', $data->search_term);
 
-        // Check if search term is provided
+        // Check if search term is provided.
         if (empty($search_term)) {
-            // If search term is empty, display the form and return
+            // If search term is empty, display the form and return.
             $this->content->text = $form->render();
             return $this->content;
         }
 
-        // Retrieve search results
+        // Retrieve search results.
         $search_results = $this->get_search_results($search_term, $search_engine_id, $api_key);
 
-        // Display search results
+        // Display search results.
         $results_html = $this->display_search_results($search_results);
         $form_html = $form->render() . $results_html;
         $this->content->text = $form_html;
