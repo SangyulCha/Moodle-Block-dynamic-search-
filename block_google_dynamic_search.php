@@ -25,6 +25,7 @@ require_once(dirname(__FILE__) . '/form.php');
 
 class block_google_dynamic_search extends block_base
 {
+    const PLUGIN_NAME = 'block_google_dynamic_search';
 
     /**
      * Initializes class member variables.
@@ -32,7 +33,7 @@ class block_google_dynamic_search extends block_base
     public function init()
     {
         // Needed by Moodle to differentiate between blocks.
-        $this->title = get_string('pluginname', 'block_google_dynamic_search');
+        $this->title = get_string('pluginname', self::PLUGIN_NAME);
     }
 
     /**
@@ -54,29 +55,42 @@ class block_google_dynamic_search extends block_base
 
         $this->content = new stdClass();
         // Google API Key and Custom Search Engine ID
-        $api_key = get_config('block_google_dynamic_search', 'apikey');
-        $search_engine_id = get_config('block_google_dynamic_search', 'search_engine_id');
+        $api_key = get_config(self::PLUGIN_NAME, 'apikey');
+        $search_engine_id = get_config(self::PLUGIN_NAME, 'search_engine_id');
         // Display form
         $form = new block_google_search_form();
 
+        // Check if the form is cancelled
         if ($form->is_cancelled()) {
-            // Cancelled actions
+            // If cancelled, clear the content and return
             $this->content->text = '';
-        } else if ($data = $form->get_data()) {
-            // Form submitted
-            $search_term = str_replace(' ', '%20', $data->search_term);
-            // If search term is provided, display search results
-            if (!empty($search_term)) {
-                $search_results = $this->get_search_results($search_term, $search_engine_id, $api_key);
-                $results_html = $this->display_search_results($search_results);
-                $form_html = $form->render();
-                $form_html .= $results_html;
-                $this->content->text = $form_html;
-            }
-        } else {
-            // Display form
-            $this->content->text = $form->render();
+            return $this->content;
         }
+
+        // Get form data
+        if (!$data = $form->get_data()) {
+            // If form data is not available, display the form and return
+            $this->content->text = $form->render();
+            return $this->content;
+        }
+
+        // Process form submission
+        $search_term = str_replace(' ', '%20', $data->search_term);
+
+        // Check if search term is provided
+        if (empty($search_term)) {
+            // If search term is empty, display the form and return
+            $this->content->text = $form->render();
+            return $this->content;
+        }
+
+        // Retrieve search results
+        $search_results = $this->get_search_results($search_term, $search_engine_id, $api_key);
+
+        // Display search results
+        $results_html = $this->display_search_results($search_results);
+        $form_html = $form->render() . $results_html;
+        $this->content->text = $form_html;
         return $this->content;
     }
 
@@ -123,7 +137,7 @@ class block_google_dynamic_search extends block_base
 
         // Load user defined title and make sure it's never empty.
         if (empty($this->config->title)) {
-            $this->title = get_string('pluginname', 'block_google_dynamic_search');
+            $this->title = get_string('pluginname', self::PLUGIN_NAME);
         } else {
             $this->title = $this->config->title;
         }
