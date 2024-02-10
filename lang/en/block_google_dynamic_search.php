@@ -34,4 +34,3 @@ $string['search_engine_id_desc'] = 'Enter your Google Custom Search Engine ID he
 $string['apikey'] = 'Google API Key';
 $string['apikey_desc'] = 'Enter your Google API Key here.';
 $string['search'] = 'Search';
-$string['search_field'] = 'Enter your search term';
