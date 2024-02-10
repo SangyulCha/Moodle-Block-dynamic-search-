@@ -26,3 +26,7 @@
 .block-google-dynamic-search a:hover {
     color: #2980b9;
 }
+.submit-container {
+    display: inline-block;
+    vertical-align: top;
+}
