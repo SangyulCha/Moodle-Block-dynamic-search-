@@ -62,8 +62,11 @@ class block_google_dynamic_search extends block_base {
             $search_term = str_replace(' ', '%20', $data->search_term);
             // If search term is provided, display search results
             if (!empty($search_term)) {
-                $results = $this->get_search_results($search_term, $search_engine_id, $api_key);
-                $this->content->text = $this->display_search_results($results);
+                $search_results = $this->get_search_results($search_term, $search_engine_id, $api_key);
+                $results_html = $this->display_search_results($search_results);
+                $form_html = $form->render();
+                $form_html .= $results_html;
+                $this->content->text = $form_html;
             }
         } else {
             // Display form
