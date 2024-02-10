@@ -15,14 +15,14 @@ From here on we can just follow this tutorial. It assumes that you have a user w
 ## Step 1: Getting the packages
 In order to run moodle some packages have to be installed first. Make sure to have up to date sources:
 ```command
-sudo apt-get update
+sudo apt update
 ```
 
 ### Install Nginx:
 Moodle works extremely well with Nginx as it offers a simple setup and serves static files blazingly fast. Even though moodle is a huge PHP application it has advanced caching features. So Nginx is our choice:
 
 ```command
-sudo apt-get install nginx
+sudo apt install nginx
 ```
 
 There's also a [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04) about Nginx with more details.
@@ -31,7 +31,7 @@ There's also a [tutorial](https://www.digitalocean.com/community/tutorials/how-t
 Postgres is a very reliable database. Technically MariaDB or MySQL should do to but we're focusing on speed:
 
 ```command
-sudo apt-get install postgresql postgresql-contrib
+sudo apt install postgresql postgresql-contrib
 ```
 
 For additional guidance see the [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-22-04) on Postgresql. 
@@ -40,7 +40,7 @@ For additional guidance see the [tutorial](https://www.digitalocean.com/communit
 This rather long command will install all the necessary and recommended packages to run moodle on PHP 8.1:
 
 ```command
-sudo apt-get install php-fpm php-curl php-gd php-xmlrpc php-intl php-xml php-zip php-mbstring php-soap php-pgsql
+sudo apt install php-fpm php-curl php-gd php-xmlrpc php-intl php-xml php-zip php-mbstring php-soap php-pgsql
 ```
 
 ## Step 2: Installing moodle
