@@ -1,4 +1,6 @@
 # Google Search #
+![Screenshot from 2024-03-18 09-46-37](https://github.com/SangyulCha/block_google_dynamic_search/assets/92696013/f90468e9-5e39-4b30-be9d-80c7ebd48737)
+![Screenshot from 2024-03-18 09-46-52](https://github.com/SangyulCha/block_google_dynamic_search/assets/92696013/c45666c6-c3ab-4dc1-9f6d-6e72c97f9ede)
 
 This block plugin fetches the Google Custom Search Engine ID and Google API Key from the settings and displays the search results within the block.
 
